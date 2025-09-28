@@ -5,10 +5,58 @@
  */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 
-body {
+/* Global variables */
+:root {
+  --ease-apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-apple-spring-soft: cubic-bezier(0.25, 1.25, 0.5, 1);
+  --ease-havok-snappy: cubic-bezier(.13, 0, 0, 1.01);
+  --scrollbar-bg: #f1f1f100;
+  --scrollbar-thumb: #1f8ef1;
+  --scrollbar-thumb-hover: #0056b3;
+  --navbar-bg: rgba(255, 255, 255, 0.7);
+  --navbar-blur: 15px;
+  --hv-glass-bg: rgba(255, 255, 255, 0.7);
+  --hv-glass-blur: 12px;
+  --hv-glass-border: rgba(255, 255, 255, 0.4);
+  --hv-dropdown-duration: 0.35s;
+
+}
+
+/* Dark theme variants */
+:root[data-theme="dark"] {
+  --hv-glass-bg: rgba(0, 0, 0, 0.6);
+  --hv-glass-border: rgba(255, 255, 255, 0.15);
+}
+
+/*  Custom scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+}
+
+html, body {
   font-family: 'Zalando Sans', 'Helvetica Neue', Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
+  overflow: overlay;
 }
 
 /* Button */
@@ -28,102 +76,209 @@ body {
 }
 
 .btn-primary {}
+
 .btn-secondary {}
+
 .btn-success {}
+
 .btn-danger {}
+
 .btn-warning {}
+
 .btn-info {}
+
 .btn-light {}
+
 .btn-dark {}
+
 .btn-link {}
 
 .form-control {}
+
 .form-select {}
+
 .form-check {}
+
 .form-check-input {}
+
 .form-check-label {}
+
 .form-range {}
+
 .form-text {}
 
 .alert {}
+
 .alert-primary {}
+
 .alert-secondary {}
+
 .alert-success {}
+
 .alert-danger {}
+
 .alert-warning {}
+
 .alert-info {}
+
 .alert-light {}
+
 .alert-dark {}
 
 .badge {}
+
 .badge-primary {}
+
 .badge-secondary {}
+
 .badge-success {}
+
 .badge-danger {}
+
 .badge-warning {}
+
 .badge-info {}
+
 .badge-light {}
+
 .badge-dark {}
 
 .card {}
+
 .card-body {}
+
 .card-title {}
+
 .card-text {}
+
 .card-header {}
+
 .card-footer {}
+
 .card-img-top {}
 
 .nav {}
+
 .nav-item {}
+
 .nav-link {}
+
 .nav-tabs {}
+
 .nav-pills {}
-.navbar {}
+
+.navbar {
+  background-color: var(--navbar-bg);
+  backdrop-filter: blur(var(--navbar-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--navbar-blur));
+}
+
+body[data-bs-theme="dark"] .navbar {
+  background-color: rgba(44, 45, 49, 0.6) !important;
+  backdrop-filter: blur(var(--navbar-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--navbar-blur));
+}
+
 .navbar-brand {}
+
 .navbar-nav {}
+
 .navbar-toggler {}
+
 .navbar-collapse {}
+
 .navbar-light {}
+
 .navbar-dark {}
+
 .navbar-expand {}
+
 .dropdown {}
+
 .dropdown-toggle {}
-.dropdown-menu {}
+
+.dropdown-menu{
+  transition:none !important;
+  overflow:visible;
+}
+
+.hv-dropdown-inner{
+  transform:scale(.92);
+  opacity:0;
+  transform-origin:top center;
+  transition:transform var(--hv-dropdown-duration) var(--hv-ease-apple-spring),opacity calc(var(--hv-dropdown-duration)/2) ease;
+  will-change:transform,opacity;
+}
+
+.dropdown.show .hv-dropdown-inner,
+.dropdown-menu.show .hv-dropdown-inner{
+  transform:scale(1);
+  opacity:1;
+}
+
 .dropdown-item {}
 
 .accordion {}
+
 .accordion-item {}
+
 .accordion-header {}
+
 .accordion-button {}
+
 .accordion-collapse {}
+
 .accordion-body {}
 
 .progress {}
+
 .progress-bar {}
 
 .table {}
+
 .table-striped {}
+
 .table-bordered {}
+
 .table-hover {}
+
 .table-sm {}
 
 .modal {}
+
 .modal-dialog {}
+
 .modal-content {}
+
 .modal-header {}
+
 .modal-body {}
+
 .modal-footer {}
+
 .btn-close {}
 
 .spinner-border {}
+
 .spinner-grow {}
 
 .blockquote {}
+
 .blockquote-footer {}
 
 .tooltip {}
+
 .popover {}
 
+/* Dialogs */
+.modal.fade .modal-dialog {
+  transform: scale(1.2);
+  transition: transform 0.3s var(--ease-apple-spring);
+}
+
+.modal.show .modal-dialog {
+  transform: scale(1);
+}
 
 /* Fonts */
 .zalando-sans-expanded {
@@ -131,4 +286,23 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+/* Havok classes */
+.hv-glass {
+  background-color: var(--hv-glass-bg);
+  backdrop-filter: blur(var(--hv-glass-blur));
+  -webkit-backdrop-filter: blur(var(--hv-glass-blur));
+  border: 1px solid var(--hv-glass-border);
+  border-radius: 0.75rem;
+}
+
+.hv-glass-subtle {
+  --hv-glass-bg: rgba(255, 255, 255, 0.5);
+  --hv-glass-blur: 6px;
+}
+
+.hv-glass-strong {
+  --hv-glass-bg: rgba(255, 255, 255, 0.85);
+  --hv-glass-blur: 20px;
 }
